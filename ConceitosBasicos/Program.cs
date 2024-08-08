@@ -1,8 +1,4 @@
-﻿// crie um programa para calcular o IMC de uma pessoa e informar o status de acordo com o imc calculado
-
-// modifique o programa para que possua um menu de opções para suas funcionalidades
-
-using System.Globalization;
+﻿using System.Globalization;
 
 int opcao = 0;
 
@@ -13,7 +9,11 @@ do
     Console.WriteLine("(2) Peso Ideal");
     Console.WriteLine("(3) Jogo de adivinhação");
     Console.WriteLine("(4) Exibir 5 valores fornecidos pelo usuário em ordem decrescente");
+    Console.WriteLine("(5) Fatorial");
     Console.WriteLine("(6) Verifica Primo");
+    Console.WriteLine("(7) Calcular a área do retangulo");
+    Console.WriteLine("(8) Calcular área da circunferência");
+    Console.WriteLine("(9) Calcular área e verificar a validade do triângulo");
     Console.WriteLine("(0) Encerrar");
     opcao = Convert.ToInt32(Console.ReadLine());
     switch (opcao)
@@ -31,22 +31,24 @@ do
             OrdenarValores();
             break;
         case 5:
-            //Fatorial();
+            Fatorial();
             break;
         case 6:
             Console.WriteLine("Informe um número inteiro:");
             int numero = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(VerificaPrimo(numero));
             break;
+        case 7:
+            ÁreaRetangulo();
+            break;
+        case 8:
+            ÁreaCircunferência();
+            break;
+        case 9:
+            ÁreaTriângulo();
+            break;
     }
-    /*
-    if (opcao == 1)
-        CalcularIMC();
-    else if (opcao == 2)
-        PesoIdeal();
-    else if (opcao == 3)
-        JogoAdivinhacao();
-    */
+    
 } while (opcao != 0);
 Console.WriteLine("Obrigado por sua participação!");
 Console.WriteLine("Programa Finalizado");
@@ -77,8 +79,7 @@ static void CalcularIMC()
     else
         status = "Obesidade Grave";
 
-    // crie a mensagem: O IMC x indica a classificação y
-    // $ -> caractere de interpolação
+    
     Console.WriteLine($"O IMC {imc} indica a classificação {status}");
 }
 
@@ -159,6 +160,21 @@ static void OrdenarValores()
     }
 }
 
+static void Fatorial()
+{
+    int i, numero, fatorial;
+    Console.WriteLine("Informe o número");
+    numero = int.Parse(Console.ReadLine());
+
+    fatorial = numero;
+    for (i = numero - 1; i >= 1; i--)
+    {
+        fatorial = fatorial * i;
+    }
+    Console.WriteLine($"\nFatorial de {numero} é {fatorial} ");
+    Console.ReadLine();
+}
+
 static string VerificaPrimo(int numero)
 {
     int cont = numero / 2;
@@ -170,4 +186,55 @@ static string VerificaPrimo(int numero)
     }
     return "é primo";
 
+}
+
+
+static void ÁreaRetangulo()
+{
+    Console.WriteLine("Informe a base:");
+    int Base = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Informe a altura:");
+    int Altura = int.Parse(Console.ReadLine());
+
+    int area = Base * Altura;
+
+    Console.WriteLine($"A área é igual a:{area}");
+}
+
+static void ÁreaCircunferência()
+{
+    Console.WriteLine("Informe o raio:");
+    float raio = float.Parse(Console.ReadLine());
+    float pi = 3.14f;
+    float area = pi * (raio * raio);
+
+    Console.WriteLine($"A área é igual a: {area}");
+}
+
+static void ÁreaTriângulo()
+{
+    Console.WriteLine("Digite o valor do lado A do triângulo:");
+    double ladoA = double.Parse(Console.ReadLine());
+
+    Console.WriteLine("Digite o valor do lado B do triângulo:");
+    double ladoB = double.Parse(Console.ReadLine());
+
+    Console.WriteLine("Digite o valor da base do triângulo:");
+    double ladoC = double.Parse(Console.ReadLine());
+
+    Console.WriteLine("Digite o valor da altura do triângulo:");
+    double alturaT = double.Parse(Console.ReadLine());
+
+    if (ladoA < ladoB + ladoC && ladoB < ladoA + ladoC && ladoC < ladoA + ladoB)
+    {
+        Console.WriteLine("O triângulo é válido");
+        double areaT = (alturaT * ladoC) / 2;
+        Console.WriteLine($"A área do triângulo é {areaT:f2}");
+    }
+
+    else
+    {
+        Console.WriteLine("O triângulo não é fisicamente possível");
+    }
 }
